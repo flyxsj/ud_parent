@@ -1,0 +1,164 @@
+body {
+	padding-top: 70px;
+	padding-bottom: 40px;
+	background-color: #eee;
+}
+
+.form-signin {
+	max-width: 330px;
+	padding: 15px;
+	margin: 0 auto;
+}
+
+.form-signin .form-signin-heading,.form-signin .checkbox {
+	margin-bottom: 10px;
+}
+
+.form-signin .checkbox {
+	font-weight: normal;
+}
+
+.form-signin .form-control {
+	position: relative;
+	height: auto;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	padding: 10px;
+	font-size: 16px;
+}
+
+.form-signin .form-control:focus {
+	z-index: 2;
+}
+
+.form-signin input[type="email"] {
+	margin-bottom: -1px;
+	border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
+}
+
+.form-signin input[type="password"] {
+	margin-bottom: 10px;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+}
+
+.left-main {
+	float: left;
+	width: 250px;
+}
+
+.main-content {
+	margin-left: 20px;
+	float: left;
+	width: 800px;
+}
+
+.main-content .title {
+	margin-bottom: 20px;
+	font-size: 1.2em;
+}
+
+.main-content .menu-list {
+	margin-bottom: 10px;
+}
+
+/**pagnavigation**/
+.mod-page-box {
+	display: inline-block;
+	text-align: center;
+}
+
+.mod-page-box a {
+	background-color: #FFFFFF;
+	border: 1px solid #DDDDDD;
+	color: #666666;
+	display: inline;
+	float: left;
+	font-size: 14px;
+	line-height: 21px;
+	margin: 2px;
+	padding: 0 7px;
+	white-space: nowrap;
+}
+
+.mod-page-box select {
+	background-color: #FFFFFF;
+	border: 1px solid #DDDDDD;
+	color: #666666;
+	display: inline;
+	float: left;
+	font-size: 14px;
+	line-height: 25px;
+	margin-left: 20px;
+	margin-top: 2px;
+	width: 50px;
+	height: 23px;
+	white-space: nowrap;
+}
+
+.mod-page-box a.current {
+	background-color: #ccc;
+}
+
+.mod-page-box i.prev {
+	background: url("img/bgs_page_dire.png") no-repeat scroll 2px 0px
+		transparent;
+	display: inline-block;
+	height: 13px;
+	width: 12px;
+	left: -3px;
+	position: relative;
+	top: 1px;
+}
+
+.mod-page-box i.next {
+	background: url("img/bgs_page_dire.png") no-repeat scroll 2px -30px
+		transparent;
+	display: inline-block;
+	height: 13px;
+	width: 12px;
+	left: -3px;
+	position: relative;
+	top: 1px;
+}
+.status{
+	display: inline-block;
+	height: 15px;
+	width: 15px;
+	border-radius: 15px;
+}
+.terminal-active {
+	background-color: green;
+	border: 1px solid green;
+}
+
+.terminal-inactive {
+	background-color: #FF4400;
+	border: 1px solid #FF4400;
+}
+
+.ad-item{
+	padding: 20px 10px;
+	background-color: #F0F8FF;
+	border: 1px #ccc solid;
+	border-radius:5px;
+	margin-bottom: 10px;
+}
+
+.existing-ad-item{
+	background-color: #B0DFB0;
+}
+
+.description-item{
+	background-color: #F5F596;
+}
+
+.blank20{
+	height: 20px;
+}
+
+.blank5{
+	height: 5px;
+}

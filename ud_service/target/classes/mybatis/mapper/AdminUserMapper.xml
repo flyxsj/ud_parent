@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ud.manage.dao.mapper.AdminUserMapper">
+	<select id="getList" parameterType="map" resultType="AdminUser">
+		select * from admin_user
+		<if test="skip != null and max != null">
+			limit #{skip},#{max}
+		</if>
+	</select>
+	
+	<select id="getById" parameterType="map" resultType="AdminUser">
+		select * from admin_user 
+		where 
+        id = #{id} 
+	</select>
+	
+	<select id="getByUsername" parameterType="map" resultType="AdminUser">
+		select * from admin_user 
+		where 
+        username = #{username} 
+	</select>
+
+	<select id="getCount" parameterType="map" resultType="int">
+		select count(*) from admin_user
+	</select>
+
+	<insert id="create" parameterType="AdminUser">
+		<![CDATA[
+        INSERT INTO admin_user (
+        	id ,
+        	username ,
+        	password ,
+        	roleType ,
+        	remark 
+        ) VALUES (
+        	#{id} ,
+        	#{username} ,
+        	#{password} ,
+        	#{roleType} ,
+        	#{remark} 
+        )
+    	]]>
+	</insert>
+
+	<update id="update" parameterType="AdminUser">
+		<![CDATA[
+        UPDATE admin_user SET
+	        username = #{username} ,
+	        password = #{password} ,
+	        roleType = #{roleType} ,
+	        remark = #{remark} 
+        WHERE 
+	        id = #{id} 
+    	]]>
+	</update>
+
+	<delete id="delete" parameterType="map">
+		<![CDATA[
+        DELETE FROM admin_user 
+        WHERE
+        id = #{id} 
+    	]]>
+	</delete>
+</mapper>

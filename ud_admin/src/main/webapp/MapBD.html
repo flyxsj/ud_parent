@@ -1,0 +1,186 @@
+﻿
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<script type="text/javascript" src="http://api.map.baidu.com/api?key=46ce9d0614bf7aefe0ba562f8cf8719&v=1.1&services=true"></script>
+<script type="text/javascript">
+    function getAddr() {
+        var map = document.getElementById("dituContent");
+        var a = 1;
+        if (a == 1) {
+            a = 2;
+            initMap();
+        }
+        else {
+            if (map.style.display == "none") {
+                map.style.display = "block";
+                initMap();
+            } else {
+                map.style.display = "none";
+            }
+        }
+
+    }
+</script>
+<body>
+    <div id="divContent">
+        <div>
+            <table>
+                <tr>
+                    <td style="min-width: 35; border-top: 50">
+                        <table style="content: no-open-quote">
+                            <tr>
+                                <td style="text-align: right;">
+                                    &nbsp;
+                                </td>
+                                <td style="text-align: left;" class="style8" colspan="2">
+                                 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: right;">
+                                    <span class="MD_spaninput">&nbsp;</span>
+                                </td>
+                                <td style="text-align: left;">
+         
+                                </td>
+                                <td style="text-align: left;">
+                                    &nbsp;
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: right;">
+                                   
+                                </td>
+                                <td style="text-align: left;">
+      
+                                </td>
+                                <td style="text-align: left;">
+                                    &nbsp;
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: right;">
+                                 
+                                </td>
+                                <td style="text-align: left;">
+    
+                                </td>
+                                <td style="text-align: left;">
+                                    &nbsp;
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: right;">
+                                 
+                                </td>
+                                <td style="text-align: left;">
+                                    &nbsp;<input id="i_IdentityCard1" name="n_IdentityCard1" type="text" value="" />
+                                </td>
+                                <td style="text-align: left;">
+                                    <input id="Button3" class="btn_3zico" type="button" value="标注地址" onclick="getAddr()" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    &nbsp;
+                                </td>
+                                <td style="text-align: left;">
+                                    
+                                </td>
+                                <td style="text-align: left;">
+                                  
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>
+                        <table>
+                            <tr>
+                                <td rowspan="6">
+                                    <div style="width: 1555px; height: 800px; border: #ccc solid 1px; margin-left: 20px;
+                                        float: left; display: block" id="dituContent">
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <!--选择后地图的坐标-->
+    <input type="text" id="lng" name="n_lng" />
+    <input type="text" id="lat" name="n_lat" />
+</body>
+</html>
+<script type="text/javascript">
+    //创建和初始化地图函数：
+    function initMap() {
+        createMap(); //创建地图
+        setMapEvent(); //设置地图事件
+        var gc = new BMap.Geocoder();
+
+        var opts = {
+            width: 300,     // 信息窗口宽度    如果指定的宽度为0，则信息窗口的宽度将按照其内容自动调整   
+            height: 0,     // 信息窗口高度  如果指定的高度为0，则信息窗口的高度将按照其内容自动调整   
+            title: "《我爱我的家乡，我爱山西，我爱太原》", // 信息窗口标题   
+            enableMessage: false  //设置允许信息窗发送短息   
+            //message:"亲耐滴，晚上一起吃个饭吧？戳看下地址喔~"  //这个是指短信内容   
+        }
+        map.addEventListener("click", function (e) {
+            var pt = e.point;
+            gc.getLocation(pt, function (rs) {
+            	console.log(rs);
+                var addComp = rs.addressComponents;
+                var addr;
+                addr = addComp.city + addComp.district + addComp.street + addComp.streetNumber;
+                var infoWindow = new BMap.InfoWindow(addr, opts);
+                map.clearOverlays(); //删除之前标注
+                var marker = new BMap.Marker(pt);
+                map.addOverlay(marker);
+                marker.openInfoWindow(infoWindow);
+                document.getElementById("i_IdentityCard1").value = addr;
+                document.getElementById("lng").value = pt.lng;
+                document.getElementById("lat").value = pt.lat;
+            });
+        });
+    }
+    //创建地图函数：
+    function createMap() {
+        var map = new BMap.Map("dituContent"); //在百度地图容器中创建一个地图
+        // 创建地址解析器实例
+        var myGeo = new BMap.Geocoder();
+        // 将地址解析结果显示在地图上,并调整地图视野
+        myGeo.getPoint("太原", function (point) {
+            if (point) {
+                map.centerAndZoom(point, 14);
+            }
+        }, "太原");
+        window.map = map; //将map变量存储在全局
+    }
+    function createMaps() {
+        var map = new BMap.Map("dituContent"); //在百度地图容器中创建一个地图
+        // 创建地址解析器实例
+        var myGeo = new BMap.Geocoder();
+        // 将地址解析结果显示在地图上,并调整地图视野
+        myGeo.getPoint(document.getElementById("address").value, function (point) {
+            if (point) {
+                map.centerAndZoom(point, 14);
+            }
+        }, document.getElementById("address").value);
+        window.map = map; //将map变量存储在全局
+    }
+    //地图事件设置函数：
+    function setMapEvent() {
+        map.enableDragging(); //启用地图拖拽事件，默认启用(可不写)
+        map.enableScrollWheelZoom(); //启用地图滚轮放大缩小
+        map.enableDoubleClickZoom(); //启用鼠标双击放大，默认启用(可不写)
+        map.enableKeyboard(); //启用键盘上下左右键移动地图
+        map.addControl(new BMap.NavigationControl());               // 添加平移缩放控件   
+        map.addControl(new BMap.ScaleControl());                    // 添加比例尺控件   
+        map.addControl(new BMap.OverviewMapControl());              //添加缩略地图控件   
+        map.addControl(new BMap.MapTypeControl());          //添加地图类型控件   
+    }
+</script>

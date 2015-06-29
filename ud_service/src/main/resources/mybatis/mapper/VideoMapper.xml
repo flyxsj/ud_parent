@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ud.manage.dao.mapper.VideoMapper">
+	<select id="getList" parameterType="map" resultType="Video">
+		select * from video
+		<if test="skip != null and max != null">
+			limit #{skip},#{max}
+		</if>
+	</select>
+	
+	<select id="getById" parameterType="map" resultType="Video">
+		select * from video 
+		where 
+        id = #{id} 
+	</select>
+
+	<select id="getCount" parameterType="map" resultType="int">
+		select count(*) from video
+	</select>
+
+	<insert id="create" parameterType="Video">
+		<![CDATA[
+        INSERT INTO video (
+        	id ,
+        	type ,
+        	title ,
+        	content ,
+        	createTime 
+        ) VALUES (
+        	#{id} ,
+        	#{type} ,
+        	#{title} ,
+        	#{content} ,
+        	#{createTime} 
+        )
+    	]]>
+	</insert>
+
+	<update id="update" parameterType="Video">
+		<![CDATA[
+        UPDATE video SET
+	        type = #{type} ,
+	        title = #{title} ,
+	        content = #{content}
+        WHERE 
+	        id = #{id} 
+    	]]>
+	</update>
+
+	<delete id="delete" parameterType="map">
+		<![CDATA[
+        DELETE FROM video 
+        WHERE
+        id = #{id} 
+    	]]>
+	</delete>
+</mapper>
