@@ -9,8 +9,8 @@
     function LoginCtrl(httpService) {
         var that = this;
         that.entity = {
-            username: '',
-            password: ''
+            username: 'xie',
+            password: '123456'
         };
         that.login = login;
         function login() {

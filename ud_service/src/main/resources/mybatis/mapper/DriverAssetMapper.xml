@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ud.manage.dao.mapper.DriverAssetMapper">
+	<select id="getList" parameterType="map" resultType="DriverAsset">
+		select * from driver_asset
+		<where>
+			<if test="driverId != null">
+				driverId=#{driverId} 
+			</if>
+			<if test="source != null">
+				and source=#{source}	 
+			</if>
+			<if test="createTime != null">
+				and DATE_FORMAT(createTime,'%Y-%m-%d')=#{createTime}	 
+			</if>
+		</where>
+		<if test="skip != null and max != null">
+			limit #{skip},#{max}
+		</if>
+	</select>
+	
+	<select id="getById" parameterType="map" resultType="DriverAsset">
+		select * from driver_asset 
+		where 
+        id = #{id} 
+	</select>
+
+	<select id="getCount" parameterType="map" resultType="int">
+		select count(*) from driver_asset
+	</select>
+
+	<insert id="create" useGeneratedKeys="true" keyProperty="id" parameterType="DriverAsset">
+		<![CDATA[
+        INSERT INTO driver_asset (
+        	driverId ,
+        	type ,
+        	amount ,
+        	source ,
+        	remark ,
+        	createTime 
+        ) VALUES (
+        	#{driverId} ,
+        	#{type} ,
+        	#{amount} ,
+        	#{source} ,
+        	#{remark} ,
+        	#{createTime} 
+        )
+    	]]>
+	</insert>
+
+	<update id="update" parameterType="DriverAsset">
+		<![CDATA[
+        UPDATE driver_asset SET
+	        driverId = #{driverId} ,
+	        type = #{type} ,
+	        amount = #{amount} ,
+	        source = #{source} ,
+	        remark = #{remark} ,
+	        createTime = #{createTime} 
+        WHERE 
+	        id = #{id} 
+    	]]>
+	</update>
+
+	<delete id="delete" parameterType="map">
+		<![CDATA[
+        DELETE FROM driver_asset 
+        WHERE
+        id = #{id} 
+    	]]>
+	</delete>
+</mapper>

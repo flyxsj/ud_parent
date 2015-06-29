@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ud.manage.dao.mapper.RecruitMapper">
+	<select id="getList" parameterType="map" resultType="Recruit">
+		select * from recruit
+		<if test="skip != null and max != null">
+			limit #{skip},#{max}
+		</if>
+	</select>
+	
+	<select id="getById" parameterType="map" resultType="Recruit">
+		select * from recruit 
+		where 
+        id = #{id} 
+	</select>
+
+	<select id="getCount" parameterType="map" resultType="int">
+		select count(*) from recruit
+	</select>
+
+	<insert id="create" parameterType="Recruit">
+		<![CDATA[
+        INSERT INTO recruit (
+        	driverId ,
+        	schoolName ,
+        	price ,
+        	scope ,
+        	address ,
+        	longitude ,
+        	latitude ,
+        	phone ,
+        	introduce ,
+        	status ,
+        	createTime ,
+        	updateTime 
+        ) VALUES (
+        	#{driverId} ,
+        	#{schoolName} ,
+        	#{price} ,
+        	#{scope} ,
+        	#{address} ,
+        	#{longitude} ,
+        	#{latitude} ,
+        	#{phone} ,
+        	#{introduce} ,
+        	#{status} ,
+        	#{createTime} ,
+        	#{updateTime} 
+        )
+    	]]>
+	</insert>
+
+	<update id="update" parameterType="Recruit">
+		<![CDATA[
+        UPDATE recruit SET
+	        schoolName = #{schoolName} ,
+	        price = #{price} ,
+	        scope = #{scope} ,
+	        address = #{address} ,
+	        phone = #{phone} ,
+	        introduce = #{introduce} ,
+	        status = #{status} ,
+	        createTime = #{createTime} ,
+	        updateTime = #{updateTime} 
+        WHERE 
+	        id = #{id} 
+    	]]>
+	</update>
+
+	<delete id="delete" parameterType="map">
+		<![CDATA[
+        DELETE FROM recruit 
+        WHERE
+        id = #{id} 
+    	]]>
+	</delete>
+</mapper>

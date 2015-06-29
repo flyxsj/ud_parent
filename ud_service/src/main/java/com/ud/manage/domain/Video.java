@@ -1,7 +1,7 @@
 package com.ud.manage.domain;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.Date;
 
 public class Video implements Serializable {
 

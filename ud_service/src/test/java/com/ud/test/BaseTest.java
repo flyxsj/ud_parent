@@ -6,8 +6,13 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.ud.manage.dao.mapper.AdminUserMapper;
 import com.ud.manage.dao.mapper.ExamMapper;
+import com.ud.manage.dao.mapper.ScheduleMapper;
 import com.ud.manage.service.AdminUserService;
+import com.ud.manage.service.DriverService;
 import com.ud.manage.service.ExamService;
+import com.ud.manage.service.OrderService;
+import com.ud.manage.service.RaceService;
+import com.ud.manage.service.ScheduleService;
 
 public class BaseTest {
 
@@ -15,6 +20,11 @@ public class BaseTest {
 	protected static ExamService examService;
 	protected static AdminUserMapper adminUserMapper;
 	protected static ExamMapper examMapper;
+	protected static ScheduleMapper scheduleMapper;
+	protected static ScheduleService scheduleService;
+	protected static OrderService orderService;
+	protected static DriverService driverService;
+	protected static RaceService raceService;
 
 	@Before
 	public void setUp() {
@@ -25,6 +35,11 @@ public class BaseTest {
 			adminUserMapper = context.getBean(AdminUserMapper.class);
 			examMapper = context.getBean(ExamMapper.class);
 			examService = context.getBean(ExamService.class);
+			scheduleMapper = context.getBean(ScheduleMapper.class);
+			scheduleService = context.getBean(ScheduleService.class);
+			orderService = context.getBean(OrderService.class);
+			driverService = context.getBean(DriverService.class);
+			raceService = context.getBean(RaceService.class);
 		}
 	}
 }

@@ -8,8 +8,8 @@
 
     <form class="form-signin" ng-submit="vm.login()">
         <h2 class="form-signin-heading">请登录</h2>
-        <input type="text" class="form-control" placeholder="用户名" autofocus value="xie" ng-model="vm.entity.username">
-        <input type="password" class="form-control" placeholder="密码" value="123456" ng-model="vm.entity.password">
+        <input type="text" class="form-control" placeholder="用户名" autofocus ng-model="vm.entity.username">
+        <input type="password" class="form-control" placeholder="密码" ng-model="vm.entity.password">
         <br>
         <br>
         <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>

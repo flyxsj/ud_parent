@@ -5,10 +5,7 @@
 package com.ud.admin.web.action;
 
 import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.URISyntaxException;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -38,7 +35,7 @@ public class UtilAction extends BaseAction {
 	public void upload(HttpServletRequest request, HttpServletResponse response, PrintWriter out,
 			@RequestParam(value = "action", required = false, defaultValue = "upload") String action) {
 		response.setCharacterEncoding("utf8");
-//		response.setContentType("application/json");
+		// response.setContentType("application/json");
 		if ("config".equals(action)) {
 			try {
 				File f = new File(UtilAction.class.getClassLoader().getResource("conf/ue_config.properties").toURI());
@@ -49,7 +46,7 @@ public class UtilAction extends BaseAction {
 		} else {
 			String callback = request.getParameter("callback");
 			response.setContentType("text/html");
-			
+
 			MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
 			Map<String, MultipartFile> fileMap = multipartRequest.getFileMap();
 			MultipartFile multipartFile = null;
@@ -57,8 +54,10 @@ public class UtilAction extends BaseAction {
 			for (Map.Entry<String, MultipartFile> set : fileMap.entrySet()) {
 				multipartFile = set.getValue();
 			}
-			filePath = storeService.storeFile("exam", multipartFile);
-//			filePath = "exam/201506/26/07ccab59-d148-487c-868a-1ae10216407b.png";
+			//TODO to be removed
+			//filePath = storeService.storeFile("exam", multipartFile);
+			// filePath =
+			// "exam/201506/26/07ccab59-d148-487c-868a-1ae10216407b.png";
 			// out.print(fileName);
 			String result = "{\"name\":\"test\", \"originalName\": \"testo\", \"size\": " + multipartFile.getSize()
 					+ ", \"state\": \"SUCCESS\", \"type\": \".png\", \"url\": \"" + filePath + "\"}";

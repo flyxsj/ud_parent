@@ -5,8 +5,20 @@
 <mapper namespace="com.ud.manage.dao.mapper.ExamMapper">
 	<select id="getList" parameterType="map" resultType="Exam">
 		select * from exam
+		<where>
+			<if test="type != null">
+				type=#{type} 
+			</if>
+		</where>
 		<if test="skip != null and max != null">
 			limit #{skip},#{max}
+		</if>
+	</select>
+	
+	<select id="getIdList" parameterType="map" resultType="Integer">
+		select id from exam
+		<if test="type != null">
+			where type = #{type}
 		</if>
 	</select>
 	
@@ -18,6 +30,11 @@
 
 	<select id="getCount" parameterType="map" resultType="int">
 		select count(*) from exam
+		<where>
+			<if test="type != null">
+				type=#{type} 
+			</if>
+		</where>
 	</select>
 
 	<insert id="create" parameterType="Exam">

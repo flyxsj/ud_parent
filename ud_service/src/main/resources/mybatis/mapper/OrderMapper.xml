@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ud.manage.dao.mapper.OrderMapper">
+	<select id="getList" parameterType="map" resultType="Order">
+		select * from `order`
+		<where>
+			<if test="status != null">
+				and status=#{status}	
+			</if>
+			<if test="trainEndTime != null">
+				and DATE_FORMAT(trainEndTime,'%Y-%m-%d')=#{trainEndTime}	
+			</if>
+		</where>
+		<if test="skip != null and max != null">
+			limit #{skip},#{max}
+		</if>
+	</select>
+	
+	<select id="getCount" parameterType="map" resultType="int">
+		select count(*) from `order`
+	</select>
+	
+	<select id="getListByDriver" parameterType="map" resultType="Order">
+		select * from `order`
+		<where>
+			<if test="driverId != null">
+				driverId=#{driverId}	
+			</if>
+			<if test="status != null">
+				and status=#{status}	
+			</if>
+		</where>
+		<if test="skip != null and max != null">
+			limit #{skip},#{max}
+		</if>
+	</select>
+	
+	<select id="getListByStudent" parameterType="map" resultType="Order">
+		select * from `order`
+		<where>
+			<if test="studentId != null">
+				studentId=#{studentId}	
+			</if>
+			<if test="status != null">
+				and status=#{status}	
+			</if>
+		</where>
+		<if test="skip != null and max != null">
+			limit #{skip},#{max}
+		</if>
+	</select>
+	
+	<select id="getCountByDriver" parameterType="map" resultType="int">
+		select count(*) from `order`
+		<where>
+			<if test="driverId != null">
+				driverId=#{driverId}	
+			</if>
+			<if test="status != null">
+				and status=#{status}	
+			</if>
+		</where>
+	</select>
+	
+	<select id="getCountByStudent" parameterType="map" resultType="int">
+		select count(*) from `order`
+		<where>
+			<if test="studentId != null">
+				studentId=#{studentId}	
+			</if>
+			<if test="status != null">
+				and status=#{status}	
+			</if>
+		</where>
+	</select>
+	
+	<select id="getById" parameterType="map" resultType="Order">
+		select * from `order` 
+		where 
+        id = #{id} 
+	</select>
+	
+	<select id="getByOrderNumber" parameterType="map" resultType="Order">
+		select * from `order` 
+		where 
+        orderNumber = #{orderNumber} 
+	</select>
+	
+	<select id="getByServiceCode" parameterType="map" resultType="Order">
+		select * from `order` 
+		where 
+        serviceCode = #{serviceCode} 
+	</select>
+
+	<insert id="create" parameterType="Order">
+		<![CDATA[
+        INSERT INTO `order` (
+        	orderNumber ,
+        	serviceCode ,
+        	studentId ,
+        	driverId ,
+        	type ,
+        	course ,
+        	address ,
+        	longitude ,
+        	latitude ,
+        	reserveDay ,
+        	reserveStartTime ,
+        	reserveEndTime ,
+        	status ,
+        	createTime 
+        ) VALUES (
+        	#{orderNumber} ,
+        	#{serviceCode} ,
+        	#{studentId} ,
+        	#{driverId} ,
+        	#{type} ,
+        	#{course} ,
+        	#{address} ,
+        	#{longitude} ,
+        	#{latitude} ,
+        	#{reserveDay} ,
+        	#{reserveStartTime} ,
+        	#{reserveEndTime} ,
+        	#{status} ,
+        	#{createTime} 
+        )
+    	]]>
+	</insert>
+
+	<update id="update" parameterType="Order">
+		<![CDATA[
+        UPDATE `order` SET
+	        studentId = #{studentId} ,
+	        driverId = #{driverId} ,
+	        type = #{type} ,
+	        course = #{course} ,
+	        address = #{address} ,
+	        longitude = #{longitude} ,
+	        latitude = #{latitude} ,
+	        reserveDay = #{reserveDay} ,
+	        reserveStartTime = #{reserveStartTime} ,
+	        reserveEndTime = #{reserveEndTime} ,
+	        status = #{status} ,
+	        serviceCode = #{serviceCode} ,
+	        trainStartTime = #{trainStartTime} ,
+	        trainEndTime = #{trainEndTime} ,
+	        createTime = #{createTime} 
+        WHERE 
+	        id = #{id} 
+    	]]>
+	</update>
+
+	<delete id="delete" parameterType="map">
+		<![CDATA[
+        DELETE FROM `order` 
+        WHERE
+        id = #{id} 
+    	]]>
+	</delete>
+</mapper>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ud.manage.dao.mapper.LuckMapper">
+	<select id="getList" parameterType="map" resultType="Luck">
+		select * from luck
+		<if test="skip != null and max != null">
+			limit #{skip},#{max}
+		</if>
+	</select>
+	
+	<select id="getListByStudent" parameterType="map" resultType="Luck">
+		select * from luck where studentId=#{studentId} and DATE_FORMAT(createTime,'%Y-%m-%d')=#{createDay}
+	</select>
+	
+	<select id="getById" parameterType="map" resultType="Luck">
+		select * from luck 
+		where 
+        id = #{id} 
+	</select>
+
+	<select id="getCount" parameterType="map" resultType="int">
+		select count(*) from luck
+	</select>
+
+	<insert id="create" useGeneratedKeys="true" keyProperty="id" parameterType="Luck">
+		<![CDATA[
+        INSERT INTO luck (
+        	studentId ,
+        	bean ,
+        	isShare ,
+        	createTime 
+        ) VALUES (
+        	#{studentId} ,
+        	#{bean} ,
+        	#{isShare} ,
+        	#{createTime} 
+        )
+    	]]>
+	</insert>
+
+	<update id="update" parameterType="Luck">
+		<![CDATA[
+        UPDATE luck SET
+	        studentId = #{studentId} ,
+	        bean = #{bean} ,
+	        isShare = #{isShare} ,
+	        createTime = #{createTime} 
+        WHERE 
+	        id = #{id} 
+    	]]>
+	</update>
+
+	<delete id="delete" parameterType="map">
+		<![CDATA[
+        DELETE FROM luck 
+        WHERE
+        id = #{id} 
+    	]]>
+	</delete>
+</mapper>

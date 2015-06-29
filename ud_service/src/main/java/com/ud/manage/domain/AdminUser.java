@@ -1,7 +1,6 @@
 package com.ud.manage.domain;
 
 import java.io.Serializable;
-import java.util.*;
 
 public class AdminUser implements Serializable {
 

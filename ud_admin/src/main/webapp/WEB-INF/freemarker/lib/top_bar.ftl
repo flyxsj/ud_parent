@@ -20,6 +20,19 @@
                     </ul>
                 </li>
                 <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">教练管理<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="${contextPath}/admin/driver/list.do">教练列表</a></li>
+                        <li><a href="${contextPath}/admin/recruit/list.do">店面管理</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">学员管理<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="${contextPath}/admin/student/list.do">学员列表</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">题库管理<span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="${contextPath}/admin/exam/list.do">题库列表</a></li>
@@ -46,7 +59,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span>
-                        <span id="logigUsername"></span></a>
+                        <span id="logigUsername">${loginAccount.username}</span></a>
                     <ul class="dropdown-menu">
                         <li><a href="change-password.html">修改密码</a></li>
                         <li role="presentation" class="divider"></li>

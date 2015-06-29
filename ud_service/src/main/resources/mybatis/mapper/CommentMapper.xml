@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ud.manage.dao.mapper.CommentMapper">
+	<select id="getList" parameterType="map" resultType="Comment">
+		select * from `comment`
+		<if test="skip != null and max != null">
+			limit #{skip},#{max}
+		</if>
+	</select>
+	
+	<select id="getById" parameterType="map" resultType="Comment">
+		select * from `comment` 
+		where 
+        id = #{id} 
+	</select>
+	
+	<select id="getByOrderId" parameterType="map" resultType="Comment">
+		select * from `comment` 
+		where 
+        orderId = #{orderId} 
+	</select>
+
+	<select id="getCount" parameterType="map" resultType="int">
+		select count(*) from `comment`
+	</select>
+
+	<insert id="create" parameterType="Comment">
+		<![CDATA[
+        INSERT INTO `comment` (
+        	id ,
+        	orderId ,
+        	level ,
+        	description ,
+        	createTime 
+        ) VALUES (
+        	#{id} ,
+        	#{orderId} ,
+        	#{level} ,
+        	#{description} ,
+        	#{createTime} 
+        )
+    	]]>
+	</insert>
+
+	<update id="update" parameterType="Comment">
+		<![CDATA[
+        UPDATE `comment` SET
+	        orderId = #{orderId} ,
+	        level = #{level} ,
+	        description = #{description} ,
+	        createTime = #{createTime} 
+        WHERE 
+	        id = #{id} 
+    	]]>
+	</update>
+
+	<delete id="delete" parameterType="map">
+		<![CDATA[
+        DELETE FROM `comment` 
+        WHERE
+        id = #{id} 
+    	]]>
+	</delete>
+</mapper>

@@ -8,8 +8,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -433,6 +435,15 @@ public class ToolsUtil {
 		return m.matches();
 	}
 
+	public static String getRandomNumber(int size) {
+		long num = (long) ((Math.random()) * 9 * Math.pow(10, size - 1) + 1 * Math.pow(10, size - 1));
+		return num + "";
+	}
+
+	public static boolean isSameDay(Date date1, Date date2) {
+		return date2String(date1, "yyyy-MM-dd").equals(date2String(date2, "yyyy-MM-dd"));
+	}
+
 	public static void main(String[] args) {
 		System.out.println(isValidEmail("ads@fdas.com"));
 		System.out.println(isValidEmail("ads@fda's.com"));
@@ -440,5 +451,18 @@ public class ToolsUtil {
 		System.out.println(isValidEmail("adsfdsa'da@fascom"));
 		System.out.println(isValidEmail("21-a@fas.com"));
 		System.out.println(isValidEmail("21_a@fas.com"));
+		System.out.println(getRandomNumber(15));
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
+
+		Random r = new Random();
+		Set<Integer> set = new HashSet<Integer>();
+		int max = 10;
+		while (set.size() < max) {
+			int val = r.nextInt(501);
+			if (val != 0) {
+				set.add(val);
+			}
+		}
+		System.out.println(set);
 	}
 }

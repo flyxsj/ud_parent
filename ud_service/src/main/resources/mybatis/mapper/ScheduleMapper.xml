@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ud.manage.dao.mapper.ScheduleMapper">
+	<select id="getList" parameterType="map" resultType="Schedule">
+		select * from schedule
+		<if test="skip != null and max != null">
+			limit #{skip},#{max}
+		</if>
+	</select>
+	
+	<select id="getListByDay" parameterType="map" resultType="Schedule">
+		SELECT
+		  *
+		FROM schedule s
+		WHERE s.day = STR_TO_DATE(#{day}, '%Y-%m-%d') AND s.isAlwaysEnable = 0
+		UNION
+		SELECT
+		  *
+		FROM schedule s
+		WHERE s.isAlwaysEnable = 1;
+	</select>
+	
+	<select id="getById" parameterType="map" resultType="Schedule">
+		select * from schedule 
+		where 
+        id = #{id} 
+	</select>
+
+	<select id="getCount" parameterType="map" resultType="int">
+		select count(*) from schedule
+	</select>
+
+	<insert id="create" parameterType="Schedule">
+		<![CDATA[
+        INSERT INTO schedule (
+        	id ,
+        	driverId ,
+        	type ,
+        	day ,
+        	startTime ,
+        	endTime ,
+        	isAlwaysEnable ,
+        	createTime 
+        ) VALUES (
+        	#{id} ,
+        	#{driverId} ,
+        	#{type} ,
+        	#{day} ,
+        	#{startTime} ,
+        	#{endTime} ,
+        	#{isAlwaysEnable} ,
+        	#{createTime} 
+        )
+    	]]>
+	</insert>
+
+	<update id="update" parameterType="Schedule">
+		<![CDATA[
+        UPDATE schedule SET
+	        driverId = #{driverId} ,
+	        type = #{type} ,
+	        day = #{day} ,
+	        startTime = #{startTime} ,
+	        endTime = #{endTime} ,
+	        isAlwaysEnable = #{isAlwaysEnable} ,
+	        createTime = #{createTime} 
+        WHERE 
+	        id = #{id} 
+    	]]>
+	</update>
+
+	<delete id="delete" parameterType="map">
+		<![CDATA[
+        DELETE FROM schedule 
+        WHERE
+        id = #{id} 
+    	]]>
+	</delete>
+</mapper>

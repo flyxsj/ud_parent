@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ud.manage.dao.mapper.DriverMapper">
+	<select id="getList" parameterType="map" resultType="Driver">
+		select * from driver
+		<if test="skip != null and max != null">
+			limit #{skip},#{max}
+		</if>
+	</select>
+	
+	<select id="getById" parameterType="map" resultType="Driver">
+		select * from driver where id = #{id} 
+	</select>
+	
+	<select id="getByOpenid" parameterType="map" resultType="Driver">
+		select * from driver where openid = #{openid} 
+	</select>
+	
+	<select id="matchByGeo" parameterType="map" resultType="map">
+		<![CDATA[
+		SELECT
+		    id,
+		    geo_calc_distance(#{lat}, #{lon}, latitude, longitude) AS gap
+	  	FROM driver
+	  	WHERE status = 'A' AND latitude >= #{lat} - 0.02
+		  	AND latitude <= #{lat} + 0.02
+		  	AND longitude >= #{lon} - 0.02
+		  	AND longitude <= #{lon} + 0.02
+		  Order by geo_calc_distance(#{lat}, #{lon}, latitude, longitude) ASC
+		  LIMIT #{max}
+  		]]>
+	</select>
+
+	<select id="getCount" parameterType="map" resultType="int">
+		select count(*) from driver
+	</select>
+
+	<insert id="create" parameterType="Driver">
+		<![CDATA[
+        INSERT INTO driver (
+        	id ,
+        	openid ,
+        	name ,
+        	driverLicense ,
+        	idNumber ,
+        	hasShop ,
+        	address ,
+        	longitude ,
+        	latitude ,
+        	driveAge ,
+        	mobile ,
+        	score ,
+        	ub ,
+        	status ,
+        	createTime ,
+        	updateTime 
+        ) VALUES (
+        	#{id} ,
+        	#{openid} ,
+        	#{name} ,
+        	#{driverLicense} ,
+        	#{idNumber} ,
+        	#{hasShop} ,
+        	#{address} ,
+        	#{longitude} ,
+        	#{latitude} ,
+        	#{driveAge} ,
+        	#{mobile} ,
+        	#{score} ,
+        	#{ub} ,
+        	#{status} ,
+        	#{createTime} ,
+        	#{updateTime} 
+        )
+    	]]>
+	</insert>
+
+	<update id="update" parameterType="Driver">
+		<![CDATA[
+        UPDATE driver SET
+	        openid = #{openid} ,
+	        driverLicense = #{driverLicense} ,
+	        idNumber = #{idNumber} ,
+	        hasShop = #{hasShop} ,
+	        address = #{address} ,
+	        longitude = #{longitude} ,
+	        latitude = #{latitude} ,
+	        driveAge = #{driveAge} ,
+	        mobile = #{mobile} ,
+	        score = #{score} ,
+	        ub = #{ub} ,
+	        status = #{status}
+        WHERE 
+	        id = #{id} 
+    	]]>
+	</update>
+
+	<delete id="delete" parameterType="map">
+		<![CDATA[
+        DELETE FROM driver 
+        WHERE
+        id = #{id} 
+    	]]>
+	</delete>
+</mapper>

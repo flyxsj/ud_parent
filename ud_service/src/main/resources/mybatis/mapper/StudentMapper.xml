@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ud.manage.dao.mapper.StudentMapper">
+	<select id="getList" parameterType="map" resultType="Student">
+		select * from student
+		<if test="skip != null and max != null">
+			limit #{skip},#{max}
+		</if>
+	</select>
+	
+	<select id="getById" parameterType="map" resultType="Student">
+		select * from student where id = #{id} 
+	</select>
+	
+	<select id="getByOpenid" parameterType="map" resultType="Student">
+		select * from student where openid = #{openid} 
+	</select>
+
+	<select id="getCount" parameterType="map" resultType="int">
+		select count(*) from student
+	</select>
+
+	<insert id="create" useGeneratedKeys="true" keyProperty="id" parameterType="Student">
+		<![CDATA[
+        INSERT INTO student (
+        	id ,
+        	openid ,
+        	mobile ,
+        	bean ,
+        	ub ,
+        	createTime 
+        ) VALUES (
+        	#{id} ,
+        	#{openid} ,
+        	#{mobile} ,
+        	#{bean} ,
+        	#{ub} ,
+        	#{createTime} 
+        )
+    	]]>
+	</insert>
+
+	<update id="update" parameterType="Student">
+		<![CDATA[
+        UPDATE student SET
+	        openid = #{openid} ,
+	        mobile = #{mobile} ,
+	        bean = #{bean} ,
+	        ub = #{ub} ,
+	        createTime = #{createTime} 
+        WHERE 
+	        id = #{id} 
+    	]]>
+	</update>
+
+	<delete id="delete" parameterType="map">
+		<![CDATA[
+        DELETE FROM student 
+        WHERE
+        id = #{id} 
+    	]]>
+	</delete>
+</mapper>

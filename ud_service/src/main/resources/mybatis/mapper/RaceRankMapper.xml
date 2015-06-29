@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ud.manage.dao.mapper.RaceRankMapper">
+	<select id="getList" parameterType="map" resultType="RaceRank">
+		select * from race_rank
+		<if test="skip != null and max != null">
+			limit #{skip},#{max}
+		</if>
+	</select>
+	
+	<select id="getListByExamDate" parameterType="map" resultType="Race">
+		select * from race_rank where DATE_FORMAT(examDate,'%Y-%m-%d')=#{examDate} and type=#{type}
+	</select>
+	
+	<select id="getById" parameterType="map" resultType="RaceRank">
+		select * from race_rank 
+		where 
+        id = #{id} 
+	</select>
+
+	<select id="getCount" parameterType="map" resultType="int">
+		select count(*) from race_rank
+	</select>
+
+	<insert id="create" useGeneratedKeys="true" keyProperty="id" parameterType="RaceRank">
+		<![CDATA[
+        INSERT INTO race_rank (
+        	studentId ,
+        	type ,
+        	score ,
+        	rank ,
+        	consumedTime ,
+        	examDate 
+        ) VALUES (
+        	#{studentId} ,
+        	#{type} ,
+        	#{score} ,
+        	#{rank} ,
+        	#{consumedTime} ,
+        	#{examDate} 
+        )
+    	]]>
+	</insert>
+
+	<update id="update" parameterType="RaceRank">
+		<![CDATA[
+        UPDATE race_rank SET
+	        studentId = #{studentId} ,
+	        type = #{type} ,
+	        score = #{score} ,
+	        rank = #{rank} ,
+	        consumedTime = #{consumedTime} ,
+	        examDate = #{examDate} 
+        WHERE 
+	        id = #{id} 
+    	]]>
+	</update>
+
+	<delete id="delete" parameterType="map">
+		<![CDATA[
+        DELETE FROM race_rank 
+        WHERE
+        id = #{id} 
+    	]]>
+	</delete>
+</mapper>
